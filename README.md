@@ -1,4 +1,4 @@
-# Machine-Link
+# Machine Link
 Machine Link shares system outputs and inputs.
 
 Still in planning stage.
