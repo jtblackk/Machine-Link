@@ -1,5 +1,5 @@
 # Unify
-Machine Link shares system outputs and inputs.
+Unify shares system outputs and inputs.
 
 Still in planning stage.
 
