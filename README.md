@@ -1,7 +1,7 @@
 # Unify
 Unify shares system outputs and inputs.
 
-Still in planning stage.
+Still in planning stage. Likely not to be touched for a while. More important projects are taking priority.
 
 Roadmap:
 1. develop basic ui
