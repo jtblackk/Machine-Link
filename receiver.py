@@ -20,7 +20,7 @@ sender_port = int(input())
 sender_sock.connect((sender_addr, sender_port))
 print("connected to sender")
 
-
+#connection loop
 while True:
     recieved_data = sender_sock.recv(1024)
     decoded_data = recieved_data.decode('utf-8')

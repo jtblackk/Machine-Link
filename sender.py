@@ -24,7 +24,7 @@ print("waiting for a connection... connect to", sender_addr, "@ port", sender_po
 reciever_socket, receiver_address = sock.accept()
 print(f"connection with {receiver_address} established")
 
-# data sending loop
+# connection loop
 while True:
     print("enter a message or command: ", end="")
     message = input()
