@@ -1,8 +1,6 @@
 # Unify
 Unify shares system outputs and inputs. It essentially lets you use your laptop and desktop as if they are displays hooked to the same computer.
 
-Still in planning stage. Likely not to be touched for a while. More important projects are taking priority.
-
 Roadmap:
 1. develop basic ui
 2. implement audio sharing
