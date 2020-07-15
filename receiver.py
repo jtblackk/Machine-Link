@@ -22,11 +22,10 @@ print("connected to sender")
 
 #connection loop
 while True:
-    recieved_data = sender_sock.recv(1024)
-    decoded_data = recieved_data.decode('utf-8')
+    recieved_data = sender_sock.recv(1024).decode('utf-8')
 
-    print("sender:", decoded_data)
-    if decoded_data == "!quit":
+    print("sender:", recieved_data)
+    if recieved_data == "!quit":
         break
 
 
