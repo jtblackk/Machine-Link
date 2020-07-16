@@ -33,6 +33,5 @@ while True:
     # send the data to the reciever
     reciever_socket.send(bytes(message, "utf-8"))
 
-
 # close socket when connection loop is broken
 sock.close()
