@@ -54,14 +54,14 @@ audio_stream = pAud.open(format=FORMAT,
 #connection loop
 while True:
     # receive data from sender module
-    recieved_data = sender_sock.recv(CHUNK)
+    received_data = sender_sock.recv(CHUNK)
     
     # break if interrupt in the data
-    if not recieved_data:
+    if not received_data:
         break
 
     # display the data (emit audio)
-    audio_stream.write(recieved_data)
+    audio_stream.write(received_data)
 
 # close socket and streams when connection broken
 sender_sock.close()
