@@ -28,10 +28,10 @@ print(f"connection with {receiver_addr} established")
 while True:
     # get the data to send
     print("enter a message:", end=" ")
-    message = input()
+    data = input()
 
     # send the data to the reciever
-    reciever_sock.send(bytes(message, "utf-8"))
+    reciever_sock.send(bytes(data, "utf-8"))
 
 # close socket when connection loop is broken
 sock.close()
