@@ -32,3 +32,5 @@ while True:
     
     if message == "!quit":
         break
+
+sock.close()
