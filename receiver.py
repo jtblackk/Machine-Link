@@ -24,7 +24,7 @@ print("connected to sender")
 while True:
     recieved_data = sender_sock.recv(1024).decode('utf-8')
 
-    print("sender:", recieved_data)
+    print(f"sender: {recieved_data}")
     if recieved_data == "!quit":
         break
 
