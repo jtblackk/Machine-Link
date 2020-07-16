@@ -5,8 +5,17 @@
 
 
 import socket
+import pyaudio
+
+# pyAudio streaming constants
+CHUNK = 1024
+FORMAT = pyaudio.paInt16
+CHANNELS = 1
+RATE = 44100
 
 
+
+# ------ establish connection with reciever ------ #
 # create a new socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -24,14 +33,37 @@ print(f"waiting for a connection... connect to {sender_addr} @ port {sender_port
 reciever_sock, receiver_addr = sock.accept()
 print(f"connection with {receiver_addr} established")
 
+
+
+
+# ------ send audio data ------ #
+
+# instantiate pyAudio object
+pAud = pyaudio.PyAudio()
+
+# get default audio input device
+audio_device = pAud.get_default_input_device_info()
+
+# open audio stream
+audio_stream = pAud.open(format=FORMAT, 
+                        channels=CHANNELS, 
+                        rate=RATE, 
+                        input=True, 
+                        frames_per_buffer=CHUNK,
+                        input_device_index=audio_device.get('index'))
+
 # connection loop
 while True:
     # get the data to send
-    print("enter a message:", end=" ")
-    data = input()
+    data = audio_stream.read(CHUNK)
 
     # send the data to the reciever
-    reciever_sock.send(bytes(data, "utf-8"))
+    reciever_sock.send(data)
 
-# close socket when connection loop is broken
+
+# close socket and streams when loop is broken
 sock.close()
+audio_stream.stop_stream()
+audio_stream.close()
+pAud.terminate()
+
