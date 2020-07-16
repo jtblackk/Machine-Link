@@ -22,11 +22,15 @@ print("connected to sender")
 
 #connection loop
 while True:
+    # receive data from sender module
     recieved_data = sender_sock.recv(1024).decode('utf-8')
-
-    print(f"sender: {recieved_data}")
-    if recieved_data == "!quit":
+    
+    # break if interrupt in the data
+    if not recieved_data:
         break
 
+    # display the data
+    print(f"sender: {recieved_data}")
 
-    
+# close socket when connection loop broken
+sender_sock.close()
