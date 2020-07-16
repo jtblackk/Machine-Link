@@ -26,11 +26,13 @@ print(f"connection with {receiver_address} established")
 
 # connection loop
 while True:
-    print("enter a message or command:", end=" ")
+    # get the data to send
+    print("enter a message:", end=" ")
     message = input()
-    reciever_socket.send(bytes(message, "utf-8"))
-    
-    if message == "!quit":
-        break
 
+    # send the data to the reciever
+    reciever_socket.send(bytes(message, "utf-8"))
+
+
+# close socket when connection loop is broken
 sock.close()
