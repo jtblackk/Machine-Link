@@ -21,8 +21,8 @@ sock.listen(4)
 print(f"waiting for a connection... connect to {sender_addr} @ port {sender_port}")
 
 # connect to receiver
-reciever_socket, receiver_address = sock.accept()
-print(f"connection with {receiver_address} established")
+reciever_sock, receiver_addr = sock.accept()
+print(f"connection with {receiver_addr} established")
 
 # connection loop
 while True:
@@ -31,7 +31,7 @@ while True:
     message = input()
 
     # send the data to the reciever
-    reciever_socket.send(bytes(message, "utf-8"))
+    reciever_sock.send(bytes(message, "utf-8"))
 
 # close socket when connection loop is broken
 sock.close()
