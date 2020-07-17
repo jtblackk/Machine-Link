@@ -26,9 +26,9 @@ send_port_label = tk.Label(text=f"this port: {sender.sender_port}").pack(anchor=
 # display the prompt for the receiver ip address
 sender_address = tk.StringVar()
 sender_port = tk.StringVar()
-sender_address_label = tk.Label(text="Receiver address:").pack(anchor=tk.W)
+sender_address_label = tk.Label(text="Sender address:").pack(anchor=tk.W)
 sender_address_input = tk.Entry(textvariable=sender_address).pack(anchor=tk.W)
-sender_port_label = tk.Label(text="Receiver port:").pack(anchor=tk.W)
+sender_port_label = tk.Label(text="Sender port:").pack(anchor=tk.W)
 sender_port_input = tk.Entry(textvariable=sender_port).pack(anchor=tk.W)
 
 def connect_to_receiver():
