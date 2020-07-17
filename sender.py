@@ -13,7 +13,6 @@ import pyaudio
 # pyAudio streaming constants
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
-# CHANNELS = 1
 RATE = 44100
 
 
@@ -31,14 +30,13 @@ print("Available audio devices:")
 for device_index in range(0, pAud.get_device_count()):
     device_info = pAud.get_device_info_by_index(device_index)
     device_name = device_info.get("name")
-    if str(device_name).count("Virtual") or str(device_name).count("Mic"):
+    if str(device_name).count("Virtual") or str(device_name).count("Mic") or str(device_name).count("Stereo"):
         print(f"\t{device_index}: {device_name}")
 
 # choose audio device
 print("Enter the number id of the device to stream from")
 chosen_device = int(input())
 audio_device = pAud.get_device_info_by_index(chosen_device)
-
 
 
 
@@ -68,6 +66,7 @@ print(f"connection with {receiver_addr} established")
 
 
 # ------ send audio data ------ #
+
 
 # send header (number of channels)
 receiver_sock.send(bytes(str(audio_device.get('maxInputChannels')), "utf-8"))
