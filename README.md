@@ -1,7 +1,9 @@
 # Unify
 Unify shares system outputs and inputs. It essentially lets you use your laptop and desktop as if they are displays hooked to the same computer.
 
-Current state: sender sends the audio from the system's default audio input device to the reciever. the reciever then plays the data through it's system's output.
+At the moment, it is limited to sharing audio. 
+
+Instructions to come.
 
 Roadmap:
 1. develop basic ui
