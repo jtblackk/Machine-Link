@@ -16,8 +16,7 @@ class sender:
         # instantiate pyAudio object
         self.p = pyaudio.PyAudio()
 
-
-    def establish_connection(self):
+    def create_sender_socket(self):
         # create a new socket
         self.sender_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -26,6 +25,7 @@ class sender:
         self.sender_port = r.randint(6000,8000)
         self.sender_socket.bind((self.sender_address, self.sender_port))
 
+    def establish_connection(self):
         # listen for a connection
         self.sender_socket.listen(4)
         print(f"waiting for a connection... connect to {self.sender_address} @ {self.sender_port}")
@@ -66,20 +66,20 @@ class sender:
 
 
 
-sender_module = sender()
+# sender_module = sender()
 
-# get audio source
-for device_index in range(0, sender_module.p.get_device_count()):
-    device_info = sender_module.p.get_device_info_by_index(device_index)
-    device_name = device_info.get("name")
-    if str(device_name).count("Virtual") or str(device_name).count("Mic") or str(device_name).count("Stereo"):
-        print(f"\t{device_index}: {device_name}")
-print("enter the id number of an audio device:")
-audio_device = int(input())
+# # get audio source
+# for device_index in range(0, sender_module.p.get_device_count()):
+#     device_info = sender_module.p.get_device_info_by_index(device_index)
+#     device_name = device_info.get("name")
+#     if str(device_name).count("Virtual") or str(device_name).count("Mic") or str(device_name).count("Stereo"):
+#         print(f"\t{device_index}: {device_name}")
+# print("enter the id number of an audio device:")
+# audio_device = int(input())
 
-#connect to receiver
-sender_module.establish_connection()
+# #connect to receiver
+# sender_module.establish_connection()
 
 
-# stream audio
-sender_module.stream_audio(audio_device)
+# # stream audio
+# sender_module.stream_audio(audio_device)
