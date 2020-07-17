@@ -10,6 +10,7 @@ import pyaudio
 
 
 
+
 # pyAudio streaming constants
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
