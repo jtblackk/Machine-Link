@@ -4,6 +4,7 @@
 import tkinter as tk
 import receiver_obj as rcv_module
 import sender_obj as snd_module
+import threading
 
 
 
@@ -43,8 +44,9 @@ def connect_to_receiver():
     audio_device = int(input())
 
     sender.establish_connection()
-    sender.stream_audio(audio_device)
-
+    # sender.stream_audio(audio_device)
+    stream_send_thread = threading.Thread(target=sender.stream_audio)
+    stream_send_thread.start(audio_device)
 
 def connect_to_sender():
     # instantiate receiver
@@ -56,7 +58,8 @@ def connect_to_sender():
 
     # connect to the sender
     receiver.connect_to_sender(sender_addr, sender_prt)
-    receiver.receive_audio()
+    stream_receive_thread = threading.Thread(target=receiver.receive_audio)
+    stream_receive_thread.start()
 
 # display connect to receiver / listen for sender button
 connect_to_rec_button = tk.Button(text="Receive Audio", command=connect_to_sender).pack(anchor=tk.W)
