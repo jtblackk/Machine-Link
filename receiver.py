@@ -13,7 +13,7 @@ import pyaudio
 # pyAudio streaming constants
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
-CHANNELS = 1
+# CHANNELS = 1
 RATE = 44100
 
 
@@ -41,13 +41,16 @@ print("connected to sender")
 
 # ------ recieve and emit audio data ------ #
 
+# get header
+num_channels = sender_sock.recv(CHUNK).decode('utf-8')
+print(f"num channels: {num_channels}")
 
 # instantiate pyAudio object
 pAud = pyaudio.PyAudio()
 
 # open audio stream
 audio_stream = pAud.open(format=FORMAT, 
-                        channels=CHANNELS, 
+                        channels=int(num_channels), 
                         rate=RATE,
                         output=True)
 

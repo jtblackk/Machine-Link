@@ -13,8 +13,33 @@ import pyaudio
 # pyAudio streaming constants
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
-CHANNELS = 1
+# CHANNELS = 1
 RATE = 44100
+
+
+
+
+
+# ------ choose audio device to stream ------- #
+
+
+# instantiate pyAudio object
+pAud = pyaudio.PyAudio()
+
+# list audio devices
+print("Available audio devices:")
+for device_index in range(0, pAud.get_device_count()):
+    device_info = pAud.get_device_info_by_index(device_index)
+    device_name = device_info.get("name")
+    if str(device_name).count("Virtual") or str(device_name).count("Mic"):
+        print(f"\t{device_index}: {device_name}")
+
+# choose audio device
+print("Enter the number id of the device to stream from")
+chosen_device = int(input())
+audio_device = pAud.get_device_info_by_index(chosen_device)
+
+
 
 
 
@@ -36,25 +61,20 @@ sock.listen(4)
 print(f"waiting for a connection... connect to {sender_addr} @ port {sender_port}")
 
 # connect to receiver
-reciever_sock, receiver_addr = sock.accept()
+receiver_sock, receiver_addr = sock.accept()
 print(f"connection with {receiver_addr} established")
-
 
 
 
 
 # ------ send audio data ------ #
 
-
-# instantiate pyAudio object
-pAud = pyaudio.PyAudio()
-
-# get default audio input device
-audio_device = pAud.get_default_input_device_info()
+# send header (number of channels)
+receiver_sock.send(bytes(str(audio_device.get('maxInputChannels')), "utf-8"))
 
 # open audio stream
 audio_stream = pAud.open(format=FORMAT, 
-                        channels=CHANNELS, 
+                        channels=audio_device.get('maxInputChannels'), 
                         rate=RATE, 
                         input=True, 
                         frames_per_buffer=CHUNK,
@@ -66,7 +86,7 @@ while True:
     data = audio_stream.read(CHUNK)
 
     # send the data to the reciever
-    reciever_sock.send(data)
+    receiver_sock.send(data)
 
 # close socket and streams when loop is broken
 sock.close()
