@@ -2,19 +2,13 @@ import socket
 import pyaudio
 
 class receiver:
-    # properties
     CHUNK_SIZE = 1024
     FORMAT = pyaudio.paInt16
     RATE = 44100
 
-
-    #methods
-    
-
     def __init__(self):
         # instantiate pyAudio object
         self.p = pyaudio.PyAudio()
-
 
     # establish a socket connection with the sender module
     # preconditions: 
@@ -29,9 +23,6 @@ class receiver:
         # connect to the sender
         self.sender_socket.connect((sender_address, sender_port))
         print("connected to sender")
-
-
-
 
     # streams audio from the receiver module to the sender module
     # preconditions:

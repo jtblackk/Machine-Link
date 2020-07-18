@@ -7,7 +7,8 @@ import sender_obj as snd_module
 import threading
 
 
-# helper methods
+# set the audio source to stream from, connect to the receiver, 
+# and start the audio stream
 def connect_to_receiver():
     #TODO: ALLOW USER TO SELECT A RECEIVER THROUGH GUI
     # get audio source
@@ -26,7 +27,8 @@ def connect_to_receiver():
     stream_send_thread = threading.Thread(target=sender.stream_audio, args=(audio_device,))
     stream_send_thread.start()
 
-
+# connect the receiver to the sender and start 
+# listening to the audio stream
 def connect_to_sender():
     # instantiate receiver
     receiver = rcv_module.receiver()
@@ -41,8 +43,6 @@ def connect_to_sender():
     # start thread to receive audio
     stream_receive_thread = threading.Thread(target=receiver.receive_audio)
     stream_receive_thread.start()
-
-
 
 # create window object
 window = tk.Tk()
@@ -61,11 +61,9 @@ sender_address_input = tk.Entry(textvariable=sender_address).pack(anchor=tk.W)
 sender_port_label = tk.Label(text="Sender port:").pack(anchor=tk.W)
 sender_port_input = tk.Entry(textvariable=sender_port).pack(anchor=tk.W)
 
-
 # display connect to receiver / listen for sender button
 connect_to_rec_button = tk.Button(text="Receive Audio", command=connect_to_sender).pack(anchor=tk.W)
 listen_for_sender_button = tk.Button(text="Send Audio", command=connect_to_receiver).pack(anchor=tk.W)
 
 # render window
 window.mainloop()
-

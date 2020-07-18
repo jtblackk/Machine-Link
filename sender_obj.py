@@ -4,18 +4,15 @@ import pyaudio
 import random as r
 
 class sender:
-    # properties
     CHUNK = 1024
     FORMAT = pyaudio.paInt16
     RATE = 44100
-    # socket
 
-
-    # methods
     def __init__(self):
         # instantiate pyAudio object
         self.p = pyaudio.PyAudio()
 
+    # create a socket so the receiver can access the sender
     def create_sender_socket(self):
         # create a new socket
         self.sender_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -25,6 +22,7 @@ class sender:
         self.sender_port = r.randint(6000,8000)
         self.sender_socket.bind((self.sender_address, self.sender_port))
 
+    # connect to the receiver
     def establish_connection(self):
         # listen for a connection
         self.sender_socket.listen(4)
@@ -34,7 +32,7 @@ class sender:
         self.receiver_socket, self.receiver_address = self.sender_socket.accept()
         print(f"connection with {self.receiver_address} established")
 
-
+    # send a header and the audio data stream to the receiver
     def stream_audio(self, device_index):
         # send header
         device_info = self.p.get_device_info_by_index(device_index)
