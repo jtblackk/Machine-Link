@@ -61,25 +61,3 @@ class sender:
         self.audio_stream.stop_stream()
         self.audio_stream.close()
         self.p.terminate()
-
-
-
-
-
-# sender_module = sender()
-
-# # get audio source
-# for device_index in range(0, sender_module.p.get_device_count()):
-#     device_info = sender_module.p.get_device_info_by_index(device_index)
-#     device_name = device_info.get("name")
-#     if str(device_name).count("Virtual") or str(device_name).count("Mic") or str(device_name).count("Stereo"):
-#         print(f"\t{device_index}: {device_name}")
-# print("enter the id number of an audio device:")
-# audio_device = int(input())
-
-# #connect to receiver
-# sender_module.establish_connection()
-
-
-# # stream audio
-# sender_module.stream_audio(audio_device)

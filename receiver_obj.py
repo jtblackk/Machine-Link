@@ -66,18 +66,3 @@ class receiver:
         self.audio_stream.stop_stream()
         self.audio_stream.close()
         self.p.terminate()
-
-
-
-
-
-
-
-# receiver_module = receiver()
-# print("enter the sender's IP address:", end=" ")
-# ip_address = str(input())
-# print("enter the sender's port:", end=" ")
-# port = int(input())
-
-# receiver.connect_to_sender(receiver_module, ip_address, port)
-# receiver.receive_audio(receiver_module)
