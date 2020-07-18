@@ -3,7 +3,7 @@ Unify shares system outputs and inputs. It essentially lets you use your laptop 
 
 At the moment, it is limited to sharing audio. 
 
-Instructions to come.
+Instructions and executable to come.
 
 Roadmap:
 1. develop basic ui
