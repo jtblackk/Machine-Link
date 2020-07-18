@@ -45,8 +45,8 @@ def connect_to_receiver():
 
     sender.establish_connection()
     # sender.stream_audio(audio_device)
-    stream_send_thread = threading.Thread(target=sender.stream_audio)
-    stream_send_thread.start(audio_device)
+    stream_send_thread = threading.Thread(target=sender.stream_audio, args=(audio_device,))
+    stream_send_thread.start()
 
 def connect_to_sender():
     # instantiate receiver
