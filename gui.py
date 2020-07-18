@@ -50,8 +50,8 @@ window = tk.Tk()
 # display the system's sending IP address + socket port
 sender = snd_module.sender()
 sender.create_sender_socket()
-send_ip_label = tk.Label(text=f"this address: {sender.sender_address}").pack(anchor=tk.W)
-send_port_label = tk.Label(text=f"this port: {sender.sender_port}").pack(anchor=tk.W)
+send_ip_label = tk.Label(text=f"receiver address (this machine): {sender.sender_address}").pack(anchor=tk.W)
+send_port_label = tk.Label(text=f"receiver port (this machine): {sender.sender_port}").pack(anchor=tk.W)
 
 # display the prompt for the receiver ip address
 sender_address = tk.StringVar()
