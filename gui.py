@@ -19,10 +19,13 @@ def connect_to_receiver():
     print("enter the id number of an audio device:")
     audio_device = int(input())
 
+    # connect to receiver
     sender.establish_connection()
-    # sender.stream_audio(audio_device)
+
+    # start thread to send audio
     stream_send_thread = threading.Thread(target=sender.stream_audio, args=(audio_device,))
     stream_send_thread.start()
+
 
 def connect_to_sender():
     # instantiate receiver
@@ -34,6 +37,8 @@ def connect_to_sender():
 
     # connect to the sender
     receiver.connect_to_sender(sender_addr, sender_prt)
+
+    # start thread to receive audio
     stream_receive_thread = threading.Thread(target=receiver.receive_audio)
     stream_receive_thread.start()
 
