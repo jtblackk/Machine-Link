@@ -22,8 +22,18 @@ class sender:
                     audio_device_list.append(device.get('name'))
         return frozenset(audio_device_list)
 
-    # create a socket so the receiver can access the sender
-    def create_sender_socket(self):
+    # # create a socket so the receiver can access the sender
+    # def create_sender_socket(self):
+    #     # create a new socket
+    #     self.sender_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    #     # bind the socket
+    #     self.sender_address = socket.gethostbyname(socket.gethostname())
+    #     self.sender_port = r.randint(6000,8000)
+    #     self.sender_socket.bind((self.sender_address, self.sender_port))
+
+    # connect to the receiver
+    def establish_connection(self):
         # create a new socket
         self.sender_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -32,8 +42,6 @@ class sender:
         self.sender_port = r.randint(6000,8000)
         self.sender_socket.bind((self.sender_address, self.sender_port))
 
-    # connect to the receiver
-    def establish_connection(self):
         # listen for a connection
         self.sender_socket.listen(4)
         print(f"waiting for a connection... connect to {self.sender_address} @ {self.sender_port}")
@@ -43,7 +51,13 @@ class sender:
         print(f"connection with {self.receiver_address} established")
 
     # send a header and the audio data stream to the receiver
-    def stream_audio(self, device_index):
+    def stream_audio(self, device_name):
+        # find the index of the device provided
+        device_index = int()
+        for index in range(0, self.p.get_device_count()):
+            if self.p.get_device_info_by_index(index).get('name') == device_name:
+                device_index = index
+
         # send header
         device_info = self.p.get_device_info_by_index(device_index)
         self.receiver_socket.send(bytes(str(device_info.get('maxInputChannels')), "utf-8"))
@@ -64,6 +78,7 @@ class sender:
             # send the data to the receiver
             self.receiver_socket.send(data)
 
+    def close_connection(self):
         # close socket and streams
         self.sender_socket.close()
         self.audio_stream.stop_stream()
