@@ -76,8 +76,6 @@ def start_sender():
 
 
     # establish a connection
-    # TODO: move function to another thread
-    # sender.establish_connection()
     sender_connect_thread = threading.Thread(target=sender.establish_connection)
     sender_connect_thread.start()
 
@@ -93,8 +91,6 @@ def start_sender():
     sender_status['fg'] = "green"
 
     # start streaming audio
-    # TODO: move function to another thread
-    # sender.stream_audio(chosen_item.get())
     sender_stream_thread = threading.Thread(target=sender.stream_audio, args=(chosen_item.get(),))
     sender_stream_thread.start()
 
