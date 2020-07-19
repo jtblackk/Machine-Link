@@ -104,7 +104,6 @@ def stop_sender():
     # toggle start/stop button states
     send_start_button['state'] = tk.ACTIVE
     send_stop_button['state'] = tk.DISABLED
-    sender_stream_thread.join()
     sender.close_connection()
 
     # update status
