@@ -39,7 +39,7 @@ class receiver:
                         output=True)
 
         # connection loop
-        while True:
+        while not self.sender_socket.fileno() == -1:
             # receive data from sender module
             received_data = self.sender_socket.recv(self.CHUNK_SIZE)
             
