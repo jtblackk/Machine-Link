@@ -7,10 +7,19 @@ class sender:
     CHUNK = 1024
     FORMAT = pyaudio.paInt16
     RATE = 44100
+    p = pyaudio.PyAudio()
 
-    def __init__(self):
-        # instantiate pyAudio object
-        self.p = pyaudio.PyAudio()
+
+
+    # returns a list of the audio devices available for use
+    # removes duplicate items and filters out invalid options
+    def get_audio_devices(self):
+        audio_device_list = []
+        for index in range(0, self.p.get_device_count()):
+            device = self.p.get_device_info_by_index(index)
+            if str(device.get('name')).count(')') and not (str(device.get('name')).count('Speaker')or str(device.get('name')).count('Headphones')):
+                audio_device_list.append(device.get('name'))
+        return frozenset(audio_device_list)
 
     # create a socket so the receiver can access the sender
     def create_sender_socket(self):

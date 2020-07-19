@@ -5,10 +5,8 @@ class receiver:
     CHUNK_SIZE = 1024
     FORMAT = pyaudio.paInt16
     RATE = 44100
+    p = pyaudio.PyAudio()
 
-    def __init__(self):
-        # instantiate pyAudio object
-        self.p = pyaudio.PyAudio()
 
     # establish a socket connection with the sender module
     # preconditions: 
@@ -57,3 +55,7 @@ class receiver:
         self.audio_stream.stop_stream()
         self.audio_stream.close()
         self.p.terminate()
+
+
+
+    
