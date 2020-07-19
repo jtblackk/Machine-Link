@@ -17,8 +17,9 @@ class sender:
         audio_device_list = []
         for index in range(0, self.p.get_device_count()):
             device = self.p.get_device_info_by_index(index)
-            if str(device.get('name')).count(')') and not (str(device.get('name')).count('Speaker')or str(device.get('name')).count('Headphones')):
-                audio_device_list.append(device.get('name'))
+            if device.get('maxInputChannels'):
+                if not (str(device.get('name')).count('(') and not str(device.get('name')).count(')')):
+                    audio_device_list.append(device.get('name'))
         return frozenset(audio_device_list)
 
     # create a socket so the receiver can access the sender
