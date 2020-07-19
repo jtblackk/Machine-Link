@@ -53,6 +53,9 @@ def start_receiver():
     receiver_receive_thread = threading.Thread(target=receiver.receive_audio)
     receiver_receive_thread.start()
 
+    # update status
+    receiver_status['text'] = "Streaming"
+    receiver_status['fg'] = "green"
 
 # callback function to stop the receiver
 def stop_receiver():
