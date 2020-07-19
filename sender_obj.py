@@ -71,15 +71,12 @@ class sender:
                                         input_device_index=device_info.get('index'))
 
         # connection loop
-        while not self.receiver_socket.fileno() == -1:
+        while True:
             # get the data to send
             data = self.audio_stream.read(self.CHUNK)
 
             # send the data to the receiver
             self.receiver_socket.send(data)
-
-        # close connection if loop breaks
-        self.close_connection()
 
 
     def close_connection(self):

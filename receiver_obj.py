@@ -39,19 +39,17 @@ class receiver:
                         output=True)
 
         # connection loop
-        while not self.sender_socket.fileno() == -1:
+        while True:
             # receive data from sender module
             received_data = self.sender_socket.recv(self.CHUNK_SIZE)
             
             # break if kill message
-            if not received_data:
-                break
+            # if not received_data:
+            #     break
 
             # display the data (emit audio)
             self.audio_stream.write(received_data)
 
-        # close connection if loop broken
-        self.close_connection()
 
     # closes all of the connections involved in streming
     def close_connection(self):
