@@ -43,8 +43,8 @@ class receiver:
             # receive data from sender module
             received_data = self.sender_socket.recv(self.CHUNK_SIZE)
             
-            # break if interrupt in the data
-            if not received_data:
+            # break if kill message
+            if not received_data or received_data == "kill":
                 break
 
             # display the data (emit audio)

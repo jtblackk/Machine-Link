@@ -6,6 +6,17 @@ import threading
 
 CONNECTION_TIMEOUT = 10
 
+# win = tk.Toplevel()
+root = tk.Tk()
+
+# instantiate sender and receiver
+sender = sen.sender()
+receiver = rec.receiver()
+
+sender_connect_thread = None
+sender_stream_thread = None
+receiver_connect_thread = None
+receiver_receive_thread = None
 
 # callback function to start the receiver
 def start_receiver():
@@ -31,20 +42,27 @@ def start_receiver():
 
     # establish socket connection with receiver
     # TODO: move this to another thread. currently causes program to hang.
-    receiver.connect_to_sender(sender_ip_box.get(), int(sender_port_box.get()))
+    # receiver.connect_to_sender(sender_ip_box.get(), int(sender_port_box.get()))
+    receiver_connect_thread = threading.Thread(target=receiver.connect_to_sender, args=(sender_ip_box.get(), int(sender_port_box.get())))
+    receiver_connect_thread.start()
+    receiver_connect_thread.join()
 
     # update status
     receiver_status['text'] = "Connected"
-    receiver_status['fg'] = "green"
+    receiver_status['fg'] = "green" 
 
     # start receiving audio
     # TODO: move function to another thread. currently causes program to hang.
-    receiver.receive_audio()
-
+    # receiver.receive_audio()
+    receiver_receive_thread = threading.Thread(target=receiver.receive_audio)
+    receiver_receive_thread.start()
 
 
 # callback function to stop the receiver
 def stop_receiver():
+    
+    receiver_receive_thread.join()
+
     # toggle start/stop button states
     receive_start_button['state'] = tk.ACTIVE
     receive_stop_button['state'] = tk.DISABLED
@@ -53,6 +71,7 @@ def stop_receiver():
     receiver_status['text'] = "Disconnected"
     receiver_status['fg'] = "black"
 
+    # rejoin receive thread
     receiver.close_connection()
 
 
@@ -82,6 +101,7 @@ def start_sender():
     sender_status['text'] = "Streaming"
     sender_status['fg'] = "green"
 
+
 # callback function to stop the sender
 def stop_sender():
     # toggle start/stop button states
@@ -92,16 +112,6 @@ def stop_sender():
     sender_status['text'] = "Disconnected"
     sender_status['fg'] = "black"
 
-
-
-
-
-# win = tk.Toplevel()
-root = tk.Tk()
-
-# instantiate sender and receiver
-sender = sen.sender()
-receiver = rec.receiver()
 
 
 
