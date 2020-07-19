@@ -60,20 +60,17 @@ def start_receiver():
 
 # callback function to stop the receiver
 def stop_receiver():
-    
-    receiver_receive_thread.join()
 
     # toggle start/stop button states
     receive_start_button['state'] = tk.ACTIVE
     receive_stop_button['state'] = tk.DISABLED
 
+    # kill connection with sender
+    receiver.close_connection()
+
     # update status
     receiver_status['text'] = "Disconnected"
     receiver_status['fg'] = "black"
-
-    # rejoin receive thread
-    receiver.close_connection()
-
 
 # callback function to start the sender
 def start_sender(): 

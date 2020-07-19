@@ -44,7 +44,7 @@ class receiver:
             received_data = self.sender_socket.recv(self.CHUNK_SIZE)
             
             # break if kill message
-            if not received_data or received_data == "kill":
+            if not received_data:
                 break
 
             # display the data (emit audio)
@@ -52,6 +52,9 @@ class receiver:
 
     # closes all of the connections involved in streming
     def close_connection(self):
+        # send kill message to sender
+        self.sender_socket.send(bytes("kill", "utf-8"))
+
         # close socket and streams when connection broken
         self.sender_socket.close()
         self.audio_stream.stop_stream()

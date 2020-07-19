@@ -77,6 +77,9 @@ class sender:
 
             # send the data to the receiver
             self.receiver_socket.send(data)
+            if self.receiver_socket.recv(self.CHUNK).decode('utf-8') == "kill":
+                break
+
 
     def close_connection(self):
         # close socket and streams
