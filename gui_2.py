@@ -41,8 +41,6 @@ def start_receiver():
     receiver_status['fg'] = "orange"
 
     # establish socket connection with receiver
-    # TODO: move this to another thread. currently causes program to hang.
-    # receiver.connect_to_sender(sender_ip_box.get(), int(sender_port_box.get()))
     receiver_connect_thread = threading.Thread(target=receiver.connect_to_sender, args=(sender_ip_box.get(), int(sender_port_box.get())))
     receiver_connect_thread.start()
     receiver_connect_thread.join()
@@ -52,8 +50,6 @@ def start_receiver():
     receiver_status['fg'] = "green" 
 
     # start receiving audio
-    # TODO: move function to another thread. currently causes program to hang.
-    # receiver.receive_audio()
     receiver_receive_thread = threading.Thread(target=receiver.receive_audio)
     receiver_receive_thread.start()
 
@@ -78,13 +74,19 @@ def start_sender():
     send_start_button['state'] = tk.DISABLED
     send_stop_button['state'] = tk.ACTIVE
 
+
+    # establish a connection
+    # TODO: move function to another thread
+    # sender.establish_connection()
+    sender_connect_thread = threading.Thread(target=sender.establish_connection)
+    sender_connect_thread.start()
+
     # update status
     sender_status['text'] = "Connecting"
     sender_status['fg'] = "orange"
 
-    # establish a connection
-    # TODO: move function to another thread
-    sender.establish_connection()
+    # join connection thread back to main thread
+    sender_connect_thread.join()
 
     # update status
     sender_status['text'] = "Connected"
@@ -92,7 +94,9 @@ def start_sender():
 
     # start streaming audio
     # TODO: move function to another thread
-    sender.stream_audio(chosen_item.get())
+    # sender.stream_audio(chosen_item.get())
+    sender_stream_thread = threading.Thread(target=sender.stream_audio, args=(chosen_item.get(),))
+    sender_stream_thread.start()
 
     # update status
     sender_status['text'] = "Streaming"
