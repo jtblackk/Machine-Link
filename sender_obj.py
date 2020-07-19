@@ -71,7 +71,6 @@ class sender:
                                         input_device_index=device_info.get('index'))
 
         # connection loop
-        # while True:
         while not self.receiver_socket.fileno() == -1:
             # get the data to send
             data = self.audio_stream.read(self.CHUNK)
