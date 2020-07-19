@@ -105,9 +105,12 @@ def stop_sender():
     send_start_button['state'] = tk.ACTIVE
     send_stop_button['state'] = tk.DISABLED
     
+    sender.close_connection()
+
     # update status
     sender_status['text'] = "Disconnected"
     sender_status['fg'] = "black"
+
 
 
 
