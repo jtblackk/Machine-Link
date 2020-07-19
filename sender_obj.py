@@ -78,6 +78,9 @@ class sender:
             # send the data to the receiver
             self.receiver_socket.send(data)
 
+        # close connection if loop breaks
+        self.close_connection()
+
 
     def close_connection(self):
         # close socket and streams

@@ -50,6 +50,9 @@ class receiver:
             # display the data (emit audio)
             self.audio_stream.write(received_data)
 
+        # close connection if loop broken
+        self.close_connection()
+
     # closes all of the connections involved in streming
     def close_connection(self):
         # close socket and streams when connection broken
