@@ -16,10 +16,7 @@ class GUI:
         self.receiver_module = rec.receiver()
         self.audio_source = tk.StringVar()
         self.audio_source.set("Choose a device")
-        self.receiver_start_thread = td.Thread(target=self.start_receiver)
-        self.receiver_stop_thread = td.Thread(target=self.stop_receiver)
-        self.sender_start_thread = td.Thread(target=self.start_sender)
-        self.sender_stop_thread = td.Thread(target=self.stop_sender)
+        self.threads = []
 
         # ------ RECEIVE AUDIO SECTION ------ #
         # receiver section title
@@ -53,7 +50,7 @@ class GUI:
                                     master = self.master, 
                                     text = "Start",
                                     width = 5, 
-                                    command = self.receiver_start_thread.start)
+                                    command = self.threaded_start_receiver)
         self.receive_start_button.grid(column = 1, row = 3, sticky = tk.W)
 
         # stop receiving button
@@ -62,7 +59,7 @@ class GUI:
                                     text = "Stop",
                                     width = 5, 
                                     state = tk.DISABLED, 
-                                    command = self.receiver_stop_thread)
+                                    command = self.stop_receiver)
         self.receive_stop_button.grid(column = 1, row = 4, sticky = tk.W)
 
         # receiver status
@@ -100,7 +97,7 @@ class GUI:
                                     master = self.master, 
                                     text = "Start", 
                                     width = 5,
-                                    command = self.sender_start_thread)
+                                    command = self.start_sender)
         self.send_start_button.grid(column = 3, row = 3, sticky = tk.W)
 
         # stop stream button
@@ -109,7 +106,7 @@ class GUI:
                                 text = "Stop", 
                                 width = 5,
                                 state = tk.DISABLED, 
-                                command = self.sender_stop_thread)
+                                command = self.stop_sender)
         self.send_stop_button.grid(column = 3, row = 4, sticky = tk.W)
 
         # sender status
@@ -132,6 +129,13 @@ class GUI:
                             text = "Unavailable")
         self.sender_address_text.grid(column = 3, row = 6, sticky = tk.W)
 
+
+    # threaded_start_receiver
+    def threaded_start_receiver(self):
+        receiver_thread = td.Thread(target=self.start_receiver)
+        self.threads.append(receiver_thread)
+        receiver_thread.start()
+
     # callback function for when the user presses "start" on the receiver module
     def start_receiver(self):
         print("start_receiver()")
@@ -148,9 +152,6 @@ class GUI:
             self.receiver_status['text'] = "Invalid Port"
             self.receiver_status['fg'] = "red"
 
-        # switch start/stop button states
-        self.receive_start_button['state'] = tk.DISABLED
-        self.receive_stop_button['state'] = tk.ACTIVE
 
         # establish connection with sender
         self.receiver_status['text'] = "Connecting"
@@ -163,10 +164,16 @@ class GUI:
             return
         self.receiver_status['text'] = "Connected"
         self.receiver_status['fg'] = "green"
+        
+        # switch start/stop button states
+        self.receive_start_button['state'] = tk.DISABLED
+        self.receive_stop_button['state'] = tk.ACTIVE
+
 
     # callback function for when the user presses "stop" on the receiver module
     def stop_receiver(self):
         print("stop_receiver()")
+        self.close_threads()
 
     # callback function for when the user presses "start" on the sender module
     def start_sender(self):
@@ -175,3 +182,8 @@ class GUI:
     # callback function for when the user presses "stop" on the sender module
     def stop_sender(self):
         print("stop_sender()")
+        self.close_threads()
+
+    def close_threads(self):
+        for thread in self.threads:
+            thread.join()
