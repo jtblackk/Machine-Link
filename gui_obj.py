@@ -134,6 +134,7 @@ class GUI:
     def threaded_start_receiver(self):
         print("threaded_start_receiver()")
         receiver_thread = td.Thread(target=self.start_receiver)
+        receiver_thread.setDaemon(True)
         self.threads.append(receiver_thread)
         receiver_thread.start()
 
@@ -181,6 +182,7 @@ class GUI:
     def threaded_stop_receiver(self):
         print("threaded_stop_receiver()")
         stop_receiver_thread = td.Thread(target=self.stop_receiver)
+        stop_receiver_thread.setDaemon(True)
         self.threads.append(stop_receiver_thread)
         stop_receiver_thread.start()
 
@@ -201,6 +203,7 @@ class GUI:
     def threaded_start_sender(self):
         print("threaded_start_sender()")
         start_sender_thread = td.Thread(target=self.start_sender)
+        start_sender_thread.setDaemon(True)
         self.threads.append(start_sender_thread)
         start_sender_thread.start()
 
@@ -212,6 +215,7 @@ class GUI:
     def threaded_stop_sender(self):
         print("threaded_stop_sender()")
         stop_sender_thread = td.Thread(target=self.stop_sender)
+        stop_sender_thread.setDaemon(True)
         self.threads.append(stop_sender_thread)
         stop_sender_thread.start()
 
