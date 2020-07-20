@@ -97,7 +97,7 @@ class GUI:
                                     master = self.master, 
                                     text = "Start", 
                                     width = 5,
-                                    command = self.start_sender)
+                                    command = self.threaded_start_sender)
         self.send_start_button.grid(column = 3, row = 3, sticky = tk.W)
 
         # stop stream button
@@ -106,7 +106,7 @@ class GUI:
                                 text = "Stop", 
                                 width = 5,
                                 state = tk.DISABLED, 
-                                command = self.stop_sender)
+                                command = self.threaded_stop_sender)
         self.send_stop_button.grid(column = 3, row = 4, sticky = tk.W)
 
         # sender status
