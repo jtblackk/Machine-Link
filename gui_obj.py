@@ -141,7 +141,9 @@ class GUI:
             return
         
         # validate port entry
-
+        if not self.sender_port_entry.get().isdigit():
+            self.receiver_status['text'] = "Invalid Port"
+            self.receiver_status['fg'] = "red"
 
     # callback function for when the user presses "stop" on the receiver module
     def stop_receiver(self):
