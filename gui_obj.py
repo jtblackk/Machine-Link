@@ -228,7 +228,11 @@ class GUI:
         self.sender_status_text['text'] = "Sending"
         self.sender_status_text['fg'] = "purple"
 
-        
+        # start audio stream
+        self.sender_module.stream_audio(self.audio_source.get())
+
+        # if connection closes, handle it
+        self.threaded_stop_sender()
 
     # threads the stop_sender callback
     def threaded_stop_sender(self):

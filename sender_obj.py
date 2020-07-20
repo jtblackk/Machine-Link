@@ -73,6 +73,7 @@ class sender:
                 self.receiver_socket.send(data)
             except: # break if there's an interruption in the data flow
                 break
+        self.receiver_socket.close()
     # closes all of the connections related to sending audio
     def close_connection(self):
         # close socket and streams
