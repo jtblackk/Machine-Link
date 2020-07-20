@@ -170,9 +170,11 @@ class GUI:
         self.receive_stop_button['state'] = tk.ACTIVE
 
         # # start receiving audio
+        self.receiver_status['text'] = "Streaming"
+        self.receiver_status['fg'] = "purple"
         self.receiver_module.receive_audio()
 
-    
+    # stops the receiver but uses threads to do so
     def threaded_stop_receiver(self):
         print("threaded_stop_receiver()")
         stop_receiver_thread = td.Thread(target=self.stop_receiver)
