@@ -150,7 +150,11 @@ class GUI:
         self.receive_stop_button['state'] = tk.ACTIVE
 
         # establish connection with sender
+        self.receiver_status['text'] = "Connecting"
+        self.receiver_status['fg'] = "orange"
         self.receiver_module.connect_to_sender(self.sender_ip_entry.get(), int(self.sender_port_entry.get()))
+        self.receiver_status['text'] = "Connected"
+        self.receiver_status['fg'] = "green"
 
     # callback function for when the user presses "stop" on the receiver module
     def stop_receiver(self):
