@@ -184,7 +184,6 @@ class GUI:
         self.threads.append(stop_receiver_thread)
         stop_receiver_thread.start()
 
-
     # callback function for when the user presses "stop" on the receiver module
     def stop_receiver(self):
         # close up connections
