@@ -17,6 +17,7 @@ class GUI:
         self.audio_source = tk.StringVar()
         self.audio_source.set("Choose a device")
 
+
         # ------ RECEIVE AUDIO SECTION ------ #
         # receiver section title
         receive_title = tk.Label(
