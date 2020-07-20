@@ -132,7 +132,7 @@ class GUI:
     # callback function for when the user presses "start" on the receiver module
     def start_receiver(self):
         print("start_receiver()")
-        # validate ip address
+        # validate ip address entry
         try:
             ip.ip_address(self.sender_ip_entry.get())
         except ValueError:
@@ -140,6 +140,8 @@ class GUI:
             self.receiver_status['fg'] = "red"
             return
         
+        # validate port entry
+
 
     # callback function for when the user presses "stop" on the receiver module
     def stop_receiver(self):
