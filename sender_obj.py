@@ -4,7 +4,7 @@ import pyaudio
 import random as r
 
 class sender:
-    CHUNK = 1024
+    CHUNK_SIZE = 1024
     FORMAT = pyaudio.paInt16
     RATE = 44100
     p = pyaudio.PyAudio()
@@ -24,7 +24,7 @@ class sender:
 
 
     # connect to the receiver
-    def establish_connection(self):
+    def create_socket(self):
         # create a new socket
         self.sender_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -33,6 +33,7 @@ class sender:
         self.sender_port = r.randint(6000,8000)
         self.sender_socket.bind((self.sender_address, self.sender_port))
 
+    def connect_to_receiver(self):
         # listen for a connection
         self.sender_socket.listen(4)
         print(f"waiting for a connection... connect to {self.sender_address} @ {self.sender_port}")
@@ -59,13 +60,13 @@ class sender:
                                         channels = device_info.get('maxInputChannels'),
                                         rate = self.RATE,
                                         input = True,
-                                        frames_per_buffer = self.CHUNK,
+                                        frames_per_buffer = self.CHUNK_SIZE,
                                         input_device_index=device_info.get('index'))
 
         # connection loop
         while True:
             # get the data to send
-            data = self.audio_stream.read(self.CHUNK)
+            data = self.audio_stream.read(self.CHUNK_SIZE)
 
             # send the data to the receiver
             self.receiver_socket.send(data)
