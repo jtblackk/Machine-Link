@@ -16,7 +16,7 @@ class GUI:
         self.receiver_module = rec.receiver()
         self.audio_source = tk.StringVar()
         self.audio_source.set("Choose a device")
-
+        self.receiver_thread = td.Thread(target=self.start_receiver)
 
         # ------ RECEIVE AUDIO SECTION ------ #
         # receiver section title
@@ -50,7 +50,7 @@ class GUI:
                                     master = self.master, 
                                     text = "Start",
                                     width = 5, 
-                                    command = self.start_receiver)
+                                    command = self.receiver_thread.start)
         self.receive_start_button.grid(column = 1, row = 3, sticky = tk.W)
 
         # stop receiving button
@@ -152,7 +152,12 @@ class GUI:
         # establish connection with sender
         self.receiver_status['text'] = "Connecting"
         self.receiver_status['fg'] = "orange"
-        self.receiver_module.connect_to_sender(self.sender_ip_entry.get(), int(self.sender_port_entry.get()))
+        try:
+            self.receiver_module.connect_to_sender(self.sender_ip_entry.get(), int(self.sender_port_entry.get()))
+        except: # provide status update if connection couldn't be established
+            self.receiver_status['text'] = "Connection failed"
+            self.receiver_status['fg'] = "red"
+            return
         self.receiver_status['text'] = "Connected"
         self.receiver_status['fg'] = "green"
 
