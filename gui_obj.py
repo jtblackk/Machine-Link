@@ -174,7 +174,7 @@ class GUI:
         self.receiver_status['fg'] = "purple"
         self.receiver_module.receive_audio()
 
-        # if connection closes unexpectedly, stop the receiver and update status
+        # if connection closes, update status
         self.threaded_stop_receiver()
 
     # threads the stop_receiver callback
@@ -188,7 +188,7 @@ class GUI:
     # callback function for when the user presses "stop" on the receiver module
     def stop_receiver(self):
         # close up connections
-        self.receiver_module.close_connection()
+        self.receiver_module.sender_socket.close()
 
         # update status
         self.receiver_status['text'] = "Disconnected"

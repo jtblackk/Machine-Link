@@ -44,15 +44,15 @@ class receiver:
 
 
     # close all of the connections involved in receiving audio
-    def close_connection(self):
-        # close socket and streams when connection broken
-        self.sender_socket.close()
-        try:
-            self.audio_stream.stop_stream()
-            self.audio_stream.close()
-        except:
-            pass
-        self.p.terminate()
+    # def close_connection(self):
+    #     # close socket and streams when connection broken
+    #     self.sender_socket.close()
+    #     try:
+    #         self.audio_stream.stop_stream()
+    #         self.audio_stream.close()
+    #     except:
+    #         pass
+    #     self.p.terminate()
 
 
 
