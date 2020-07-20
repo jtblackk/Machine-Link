@@ -130,7 +130,7 @@ class GUI:
         self.sender_address_text.grid(column = 3, row = 6, sticky = tk.W)
 
 
-    # threaded_start_receiver
+    # threads the start_receiver callback
     def threaded_start_receiver(self):
         print("threaded_start_receiver()")
         receiver_thread = td.Thread(target=self.start_receiver)
@@ -174,7 +174,7 @@ class GUI:
         self.receiver_status['fg'] = "purple"
         self.receiver_module.receive_audio()
 
-    # stops the receiver but uses threads to do so
+    # threads the stop_receiver callback
     def threaded_stop_receiver(self):
         print("threaded_stop_receiver()")
         stop_receiver_thread = td.Thread(target=self.stop_receiver)
@@ -195,9 +195,23 @@ class GUI:
         self.receive_start_button['state'] = tk.ACTIVE
         self.receive_stop_button['state'] = tk.DISABLED
 
+    # threads the start_sender callback
+    def threaded_start_sender(self):
+        print("threaded_start_sender()")
+        start_sender_thread = td.Thread(target=self.start_sender)
+        self.threads.append(start_sender_thread)
+        start_sender_thread.start()
+
     # callback function for when the user presses "start" on the sender module
     def start_sender(self):
         print("start_sender()")
+
+    # threads the stop_sender callback
+    def threaded_stop_sender(self):
+        print("threaded_stop_sender()")
+        stop_sender_thread = td.Thread(target=self.stop_sender)
+        self.threads.append(stop_sender_thread)
+        stop_sender_thread.start()
 
     # callback function for when the user presses "stop" on the sender module
     def stop_sender(self):
