@@ -16,7 +16,10 @@ class GUI:
         self.receiver_module = rec.receiver()
         self.audio_source = tk.StringVar()
         self.audio_source.set("Choose a device")
-        self.receiver_thread = td.Thread(target=self.start_receiver)
+        self.receiver_start_thread = td.Thread(target=self.start_receiver)
+        self.receiver_stop_thread = td.Thread(target=self.stop_receiver)
+        self.sender_start_thread = td.Thread(target=self.start_sender)
+        self.sender_stop_thread = td.Thread(target=self.stop_sender)
 
         # ------ RECEIVE AUDIO SECTION ------ #
         # receiver section title
@@ -50,7 +53,7 @@ class GUI:
                                     master = self.master, 
                                     text = "Start",
                                     width = 5, 
-                                    command = self.receiver_thread.start)
+                                    command = self.receiver_start_thread.start)
         self.receive_start_button.grid(column = 1, row = 3, sticky = tk.W)
 
         # stop receiving button
@@ -59,7 +62,7 @@ class GUI:
                                     text = "Stop",
                                     width = 5, 
                                     state = tk.DISABLED, 
-                                    command = self.stop_receiver)
+                                    command = self.receiver_stop_thread)
         self.receive_stop_button.grid(column = 1, row = 4, sticky = tk.W)
 
         # receiver status
@@ -97,7 +100,7 @@ class GUI:
                                     master = self.master, 
                                     text = "Start", 
                                     width = 5,
-                                    command = self.start_sender)
+                                    command = self.sender_start_thread)
         self.send_start_button.grid(column = 3, row = 3, sticky = tk.W)
 
         # stop stream button
@@ -106,7 +109,7 @@ class GUI:
                                 text = "Stop", 
                                 width = 5,
                                 state = tk.DISABLED, 
-                                command = self.stop_sender)
+                                command = self.sender_stop_thread)
         self.send_stop_button.grid(column = 3, row = 4, sticky = tk.W)
 
         # sender status
