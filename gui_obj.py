@@ -174,6 +174,7 @@ class GUI:
     def stop_receiver(self):
         print("stop_receiver()")
         self.close_threads()
+        self.receiver_module.close_connection()
 
     # callback function for when the user presses "start" on the sender module
     def start_sender(self):
