@@ -145,6 +145,11 @@ class GUI:
             self.receiver_status['text'] = "Invalid Port"
             self.receiver_status['fg'] = "red"
 
+        # switch start/stop button states
+        self.receive_start_button['state'] = tk.DISABLED
+        self.receive_stop_button['state'] = tk.ACTIVE
+        
+
     # callback function for when the user presses "stop" on the receiver module
     def stop_receiver(self):
         print("stop_receiver()")
