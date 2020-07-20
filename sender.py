@@ -82,11 +82,14 @@ audio_stream = pAud.open(format=FORMAT,
 
 # connection loop
 while True:
-    # get the data to send
-    data = audio_stream.read(CHUNK)
+    try:
+        # get the data to send
+        data = audio_stream.read(CHUNK)
 
-    # send the data to the reciever
-    receiver_sock.send(data)
+        # send the data to the reciever
+        receiver_sock.send(data)
+    except:
+        break
 
 # close socket and streams when loop is broken
 sock.close()
