@@ -42,8 +42,11 @@ class receiver:
     def close_connection(self):
         # close socket and streams when connection broken
         self.sender_socket.close()
-        self.audio_stream.stop_stream()
-        self.audio_stream.close()
+        try:
+            self.audio_stream.stop_stream()
+            self.audio_stream.close()
+        except:
+            pass
         self.p.terminate()
 
 
