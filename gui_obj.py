@@ -170,7 +170,7 @@ class GUI:
         self.receive_stop_button['state'] = tk.ACTIVE
 
         # # start receiving audio
-        self.receiver_status['text'] = "Streaming"
+        self.receiver_status['text'] = "Receiving"
         self.receiver_status['fg'] = "purple"
         self.receiver_module.receive_audio()
 
