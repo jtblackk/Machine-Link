@@ -1,10 +1,12 @@
+# this is the front end of Unify.
+# it will provide a gui to use the app.
+
 import tkinter as tk
 import receiver_obj as rec
 import sender_obj as sen
 import ipaddress
 import threading
 
-CONNECTION_TIMEOUT = 10
 
 # win = tk.Toplevel()
 root = tk.Tk()
@@ -17,6 +19,7 @@ sender_connect_thread = None
 sender_stream_thread = None
 receiver_connect_thread = None
 receiver_receive_thread = None
+
 
 # callback function to start the receiver
 def start_receiver():
@@ -54,8 +57,9 @@ def start_receiver():
     receiver_receive_thread.start()
 
     # update status
-    receiver_status['text'] = "Streaming"
+    receiver_status['text'] = "Playing audio"
     receiver_status['fg'] = "green"
+
 
 # callback function to stop the receiver
 def stop_receiver():
@@ -71,19 +75,26 @@ def stop_receiver():
     receiver_status['text'] = "Disconnected"
     receiver_status['fg'] = "black"
 
+
 # callback function to start the sender
 def start_sender(): 
     # toggle start/stop button states
     send_start_button['state'] = tk.DISABLED
     send_stop_button['state'] = tk.ACTIVE
 
+    # create the sender's socket
+    sender.create_socket()
 
-    # establish a connection
-    sender_connect_thread = threading.Thread(target=sender.establish_connection)
+    # display sender address and port
+    sender_ip['text'] = sender.sender_address
+    # print(sender.sender_address)
+
+    # connect to the receiver
+    sender_connect_thread = threading.Thread(target=sender.connect_to_receiver)
     sender_connect_thread.start()
 
     # update status
-    sender_status['text'] = "Connecting"
+    sender_status['text'] = "Waiting for receiver"
     sender_status['fg'] = "orange"
 
     # join connection thread back to main thread
@@ -124,40 +135,29 @@ def stop_sender():
 receive_title = tk.Label(
                         master=root, 
                         text="Receive Audio"
-                    ).grid(
-                        column=0, 
-                        row=0, 
-                        columnspan=2)
+                    ).grid(column=0, row=0, columnspan=2)
 
 
 # form to enter address of a sender to connect to
 sender_ip_box_label = tk.Label(
                             master=root, 
                             text="Sender IP:"
-                        ).grid(
-                            column=0, 
-                            row=1)
+                        ).grid(column=0, row=1)
 
 sender_ip_box = tk.Entry(
                         master=root
                     )
-sender_ip_box.grid(
-                column=1, 
-                row=1)
+sender_ip_box.grid(column=1, row=1)
 
 sender_port_box_label = tk.Label(
                             master=root, 
                             text="Sender Port:"
-                        ).grid(
-                            column=0, 
-                            row=2)
+                        ).grid(column=0, row=2)
 
 sender_port_box = tk.Entry(
                         master=root
                     )
-sender_port_box.grid(
-                    column=1, 
-                    row=2)
+sender_port_box.grid(column=1, row=2)
 
 
 # buttons to start and stop connection to a sender
@@ -165,57 +165,42 @@ receive_start_button = tk.Button(
                             master=root, 
                             text="Start", 
                             command=start_receiver)
-receive_start_button.grid(
-                        column=0, 
-                        row=3)
+receive_start_button.grid(column=0, row=3)
 
 receive_stop_button = tk.Button(
                             master=root, 
                             text="Stop", 
                             state=tk.DISABLED, 
                             command=stop_receiver)
-receive_stop_button.grid(
-                        column=1, 
-                        row=3)
+receive_stop_button.grid(column=1, row=3)
 
 
 # status of receiver (unconnected, connected)
 receiver_status_label = tk.Label(
                             master=root, 
                             text="Status:"
-                        ).grid(
-                            column=0, 
-                            row=4)
+                        ).grid(column=0, row=4)
 
 receiver_status = tk.Label(
                         master=root, 
                         text="Off"
                     )
-receiver_status.grid(
-                    column=1, 
-                    row=4)
+receiver_status.grid(column=1, row=4)
 
 
 
 
 # ------ SEND AUDIO SECTION ------ #
 # sender section title
-send_title = tk.Label(
-                    master=root, 
-                    text="Send Audio"
-                ).grid(
-                    column=2, 
-                    row=0, 
-                    columnspan=2)
+send_title = tk.Label(master=root, text="Send Audio"
+                ).grid(column=2, row=0, columnspan=2)
 
 
 # form to select audio device to stream from
 audio_device_selection_label = tk.Label(
                                     master=root, 
                                     text="Stream from:"
-                                ).grid(
-                                    column=2, 
-                                    row=1)
+                                ).grid(column=2, row=1)
 
 audio_device_options = sender.get_audio_devices()
 chosen_item = tk.StringVar()
@@ -226,9 +211,7 @@ audio_device_selection = tk.OptionMenu(
                                     "Choose a device", 
                                     *audio_device_options
                                 )
-audio_device_selection.grid(
-                            column=3, 
-                            row=1)
+audio_device_selection.grid(column=3, row=1)
 
 
 # buttons to stop and start audio stream
@@ -236,49 +219,36 @@ send_start_button = tk.Button(
                             master=root, 
                             text="Start", 
                             command=start_sender)
-send_start_button.grid(
-                    column=2, 
-                    row=3)
+send_start_button.grid(column=2, row=3)
 
 send_stop_button = tk.Button(
                         master=root, 
                         text="Stop", 
                         state=tk.DISABLED, 
                         command=stop_sender)
-send_stop_button.grid(
-                    column=3, 
-                    row=3)
+send_stop_button.grid(column=3, row=3)
 
 
 # status of sender (off/waiting for connection/connected); (show ip address if waiting for a connection)
 sender_status_label = tk.Label(
                             master=root, 
                             text="Status:"
-                        ).grid(
-                            column = 2, 
-                            row=4)
+                        ).grid(column = 2, row=4)
 
 sender_status = tk.Label(
                         master=root, 
-                        text="<sender status>"
-                    )
-sender_status.grid(
-                column=3, 
-                row=4)
+                        text="Off")
+sender_status.grid(column=3, row=4)
 
 sender_address_label = tk.Label(
                             master=root, 
                             text="Sender Address:"
-                        ).grid(
-                            column = 2, 
-                            row=5)
+                        ).grid(column = 2, row=5)
 
 sender_ip = tk.Label(
                     master=root, 
-                    text="<sender ip : sender port>"
-                ).grid(
-                    column=3, 
-                    row=5)
+                    text="hi")
+sender_ip.grid(column=3, row=5)
 
 
 
