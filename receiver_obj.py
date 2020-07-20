@@ -34,6 +34,9 @@ class receiver:
                 # receive data from sender module
                 received_data = self.sender_socket.recv(self.CHUNK_SIZE)
                 
+                if not received_data:
+                    break
+
                 # display the data (emit audio)
                 self.audio_stream.write(received_data)
             except: # break if there's an interruption in the data flow
