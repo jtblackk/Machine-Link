@@ -181,6 +181,10 @@ class GUI:
         self.receiver_status['text'] = "Disconnected"
         self.receiver_status['fg'] = "black"
 
+        # switch button states
+        self.receive_start_button['state'] = tk.ACTIVE
+        self.receive_stop_button['state'] = tk.DISABLED
+
     # callback function for when the user presses "start" on the sender module
     def start_sender(self):
         print("start_sender()")
