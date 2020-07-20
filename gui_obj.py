@@ -223,6 +223,13 @@ class GUI:
             self.sender_status_text['fg'] = "red"    
             return
 
+        # connect to the receiver
+        self.sender_module.connect_to_receiver()
+        self.sender_status_text['text'] = "Sending"
+        self.sender_status_text['fg'] = "purple"
+
+        
+
     # threads the stop_sender callback
     def threaded_stop_sender(self):
         print("threaded_stop_sender()")
