@@ -1,3 +1,6 @@
+# this is the front end of Unify.
+# it will provide a gui to use the app.
+
 import tkinter as tk
 import receiver_obj as rec
 import sender_obj as sen
@@ -115,8 +118,8 @@ class GUI:
                                     text="Stream Address:")
         sender_address_label.grid(column = 2, row=5)
         sender_address = tk.Label(
-                        master=self.master, 
-                        text="Unavailable")
+                            master=self.master, 
+                            text="Unavailable")
         sender_address.grid(column=3, row=5)
 
     # callback function for when the user presses "start" on the receiver module
@@ -125,12 +128,12 @@ class GUI:
 
     # callback function for when the user presses "stop" on the receiver module
     def stop_receiver(self):
-        print("start_receiver()")
+        print("stop_receiver()")
 
     # callback function for when the user presses "start" on the sender module
     def start_sender(self):
-        print("start_receiver()")
+        print("start_sender()")
 
     # callback function for when the user presses "stop" on the sender module
     def stop_sender(self):
-        print("start_receiver()")
+        print("stop_sender()")
