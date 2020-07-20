@@ -25,22 +25,22 @@ class GUI:
         receive_title.grid(column=0, row=0, columnspan=2)
 
         # sender ip address form
-        sender_ip_entry_label = tk.Label(
+        sender_ip_label = tk.Label(
                                     master=self.master, 
                                     text="Sender IP:")
-        sender_ip_entry_label.grid(column=0, row=1)
+        sender_ip_label.grid(column=0, row=1)
         sender_ip_entry = tk.Entry(
                                 master=self.master)
         sender_ip_entry.grid(column=1, row=1)
 
         # sender port form
-        sender_port_box_label = tk.Label(
+        sender_port_label = tk.Label(
                                     master=self.master, 
                                     text="Sender Port:")
-        sender_port_box_label.grid(column=0, row=2)
-        sender_port_box = tk.Entry(
+        sender_port_label.grid(column=0, row=2)
+        sender_port_entry = tk.Entry(
                                 master=self.master)
-        sender_port_box.grid(column=1, row=2)
+        sender_port_entry.grid(column=1, row=2)
 
         # start receiving button
         receive_start_button = tk.Button(
@@ -107,20 +107,20 @@ class GUI:
                                     master=self.master, 
                                     text="Status:")
         sender_status_label.grid(column = 2, row=4)
-        sender_status = tk.Label(
+        sender_status_text = tk.Label(
                             master=self.master, 
                             text="Off")
-        sender_status.grid(column=3, row=4)
+        sender_status_text.grid(column=3, row=4)
 
         # stream address
         sender_address_label = tk.Label(
                                     master=self.master, 
-                                    text="Stream Address:")
+                                    text="Sender Address:")
         sender_address_label.grid(column = 2, row=5)
-        sender_address = tk.Label(
+        sender_address_text = tk.Label(
                             master=self.master, 
                             text="Unavailable")
-        sender_address.grid(column=3, row=5)
+        sender_address_text.grid(column=3, row=5)
 
     # callback function for when the user presses "start" on the receiver module
     def start_receiver(self):
