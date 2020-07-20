@@ -169,10 +169,13 @@ class GUI:
         self.receive_start_button['state'] = tk.DISABLED
         self.receive_stop_button['state'] = tk.ACTIVE
 
-        # # start receiving audio
+        # start receiving audio
         self.receiver_status['text'] = "Receiving"
         self.receiver_status['fg'] = "purple"
         self.receiver_module.receive_audio()
+
+        # if connection closes unexpectedly, stop the receiver and update status
+        self.threaded_stop_receiver()
 
     # threads the stop_receiver callback
     def threaded_stop_receiver(self):
