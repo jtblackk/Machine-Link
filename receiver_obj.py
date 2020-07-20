@@ -30,12 +30,14 @@ class receiver:
 
         # connection loop
         while True:
-            # receive data from sender module
-            received_data = self.sender_socket.recv(self.CHUNK_SIZE)
-            
-
-            # display the data (emit audio)
-            self.audio_stream.write(received_data)
+            try:
+                # receive data from sender module
+                received_data = self.sender_socket.recv(self.CHUNK_SIZE)
+                
+                # display the data (emit audio)
+                self.audio_stream.write(received_data)
+            except: # break if there's an interruption in the data flow
+                break
 
 
     # close all of the connections involved in receiving audio

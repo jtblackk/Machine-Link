@@ -65,12 +65,14 @@ class sender:
 
         # connection loop
         while True:
-            # get the data to send
-            data = self.audio_stream.read(self.CHUNK_SIZE)
+            try:
+                # get the data to send
+                data = self.audio_stream.read(self.CHUNK_SIZE)
 
-            # send the data to the receiver
-            self.receiver_socket.send(data)
-
+                # send the data to the receiver
+                self.receiver_socket.send(data)
+            except: # break if there's an interruption in the data flow
+                break
     # closes all of the connections related to sending audio
     def close_connection(self):
         # close socket and streams
