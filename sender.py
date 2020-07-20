@@ -89,7 +89,7 @@ while True:
         # send the data to the reciever
         receiver_sock.send(data)
     except:
-        break
+        pass
 
 # close socket and streams when loop is broken
 sock.close()
