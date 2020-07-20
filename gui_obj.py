@@ -210,17 +210,6 @@ class GUI:
     # callback function for when the user presses "start" on the sender module
     def start_sender(self):
         print("start_sender()")
-        # validate audio device selection
-        try:
-            if str(self.audio_device_selection.selection_get()) == "Choose a device":
-                self.sender_status_text['text'] = "Invalid audio device"
-                self.sender_status_text['fg'] = "red"
-                return
-        except:
-            self.sender_status_text['text'] = "Invalid audio device"
-            self.sender_status_text['fg'] = "red"
-            return
-            
         # create a socket
         try: 
             self.sender_module.create_socket()
@@ -228,6 +217,7 @@ class GUI:
             self.send_stop_button['state'] = tk.ACTIVE
             self.sender_status_text['text'] = "Ready to connect"
             self.sender_status_text['fg'] = "green"
+            self.sender_address_text['text'] = f"{self.sender_module.sender_address} @ port {self.sender_module.sender_port}"
         except:
             self.sender_status_text['text'] = "Session creation failed"
             self.sender_status_text['fg'] = "red"    
@@ -244,3 +234,8 @@ class GUI:
     # callback function for when the user presses "stop" on the sender module
     def stop_sender(self):
         print("stop_sender()")
+        self.sender_module.sender_socket.close()
+        self.sender_status_text['text'] = "Disconnected"
+        self.sender_status_text['fg'] = "black"
+        self.send_start_button['state'] = tk.ACTIVE
+        self.send_stop_button['state'] = tk.DISABLED
