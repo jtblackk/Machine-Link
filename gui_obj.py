@@ -173,8 +173,13 @@ class GUI:
     # callback function for when the user presses "stop" on the receiver module
     def stop_receiver(self):
         print("stop_receiver()")
+        # close up connections and threads
         self.close_threads()
         self.receiver_module.close_connection()
+
+        # update status
+        self.receiver_status['text'] = "Disconnected"
+        self.receiver_status['fg'] = "black"
 
     # callback function for when the user presses "start" on the sender module
     def start_sender(self):
