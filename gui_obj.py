@@ -59,7 +59,7 @@ class GUI:
                                     text = "Stop",
                                     width = 5, 
                                     state = tk.DISABLED, 
-                                    command = self.stop_receiver)
+                                    command = self.threaded_stop_receiver)
         self.receive_stop_button.grid(column = 1, row = 4, sticky = tk.W)
 
         # receiver status
@@ -132,13 +132,13 @@ class GUI:
 
     # threaded_start_receiver
     def threaded_start_receiver(self):
+        print("threaded_start_receiver()")
         receiver_thread = td.Thread(target=self.start_receiver)
         self.threads.append(receiver_thread)
         receiver_thread.start()
 
     # callback function for when the user presses "start" on the receiver module
     def start_receiver(self):
-        print("start_receiver()")
         # validate ip address entry
         try:
             ip.ip_address(self.sender_ip_entry.get())
@@ -169,12 +169,20 @@ class GUI:
         self.receive_start_button['state'] = tk.DISABLED
         self.receive_stop_button['state'] = tk.ACTIVE
 
+        # # start receiving audio
+        self.receiver_module.receive_audio()
+
+    
+    def threaded_stop_receiver(self):
+        print("threaded_stop_receiver()")
+        stop_receiver_thread = td.Thread(target=self.stop_receiver)
+        self.threads.append(stop_receiver_thread)
+        stop_receiver_thread.start()
+
 
     # callback function for when the user presses "stop" on the receiver module
     def stop_receiver(self):
-        print("stop_receiver()")
-        # close up connections and threads
-        self.close_threads()
+        # close up connections
         self.receiver_module.close_connection()
 
         # update status
@@ -192,8 +200,3 @@ class GUI:
     # callback function for when the user presses "stop" on the sender module
     def stop_sender(self):
         print("stop_sender()")
-        self.close_threads()
-
-    def close_threads(self):
-        for thread in self.threads:
-            thread.join()
