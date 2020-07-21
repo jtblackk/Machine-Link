@@ -1,7 +1,13 @@
+# this program is the sender part of Unify.
+# its purpose is to transmit audio from the
+# machine running the program to a machine
+# running the counterpart program receiver.py
+
 
 import socket
 import pyaudio
 import random as r
+
 
 class sender:
     CHUNK_SIZE = 1024
@@ -22,7 +28,6 @@ class sender:
                     audio_device_list.append(device.get('name'))
         return frozenset(audio_device_list)
 
-
     # connect to the receiver
     def create_socket(self):
         # create a new socket
@@ -41,7 +46,6 @@ class sender:
         # connect to the receiver
         self.receiver_socket, self.receiver_address = self.sender_socket.accept()
         print(f"connection with {self.receiver_address} established")
-
 
     # send a header and the audio data stream to the receiver
     def stream_audio(self, device_name):
