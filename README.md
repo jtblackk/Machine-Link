@@ -4,12 +4,13 @@ Unify shares system outputs and inputs. The idea is an application that lets you
 At the moment, it is limited to sharing audio.
 
 ### To use it to share audio:
-1. Download Unify Executable
+1. Download and run Unify installer
 2. Download and install a virtual audio cable on the machine you want to send audio from
     * I recommend https://www.vb-audio.com/Cable/
 3. Route any audio you want sent to the virtual audio cable
     * This can be done using window's sound mixer options page
 4. Open Unify on the machine you want to send audio from
+    * This is done by going into the Unify folder and opening the file Unify.exe
 5. Select the audio device to stream from (for our purposes, this will be CABLE Output)
 6. Press start on the Send Audio section
 7. Open Unify on the machine you want to receive audio on
