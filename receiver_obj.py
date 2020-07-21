@@ -1,5 +1,12 @@
+# this program is the receiver part of Unify.
+# its purpose is to receive audio that has
+# been transmitted by the sender.py counterpart
+# to this program. 
+
+
 import socket
 import pyaudio
+
 
 class receiver:
     CHUNK_SIZE = 1024
@@ -21,7 +28,6 @@ class receiver:
         # get header (number of channels to use)
         num_channels = self.sender_socket.recv(self.CHUNK_SIZE).decode('utf-8')
 
-
         # open audio stream
         self.audio_stream = self.p.open(format=self.FORMAT, 
                         channels=int(num_channels), 
@@ -41,19 +47,6 @@ class receiver:
                 self.audio_stream.write(received_data)
             except: # break if there's an interruption in the data flow
                 break
-
-
-    # close all of the connections involved in receiving audio
-    # def close_connection(self):
-    #     # close socket and streams when connection broken
-    #     self.sender_socket.close()
-    #     try:
-    #         self.audio_stream.stop_stream()
-    #         self.audio_stream.close()
-    #     except:
-    #         pass
-    #     self.p.terminate()
-
 
 
     
