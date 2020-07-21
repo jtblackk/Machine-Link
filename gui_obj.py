@@ -232,7 +232,11 @@ class GUI:
         self.sender_module.stream_audio(self.audio_source.get())
 
         # if connection closes, handle it
+        print("broke out of loop and called self.threaded_stop_sender()")
         self.threaded_stop_sender()
+        self.sender_module.audio_stream.stop_stream()
+        self.sender_module.receiver_socket.close()
+        # self.sender_module.sender_socket.close()
 
     # threads the stop_sender callback
     def threaded_stop_sender(self):
@@ -245,6 +249,9 @@ class GUI:
     # callback function for when the user presses "stop" on the sender module
     def stop_sender(self):
         print("stop_sender()")
+        # self.sender_module.close_connection()
+        self.sender_module.audio_stream.stop_stream()
+        # self.sender_module.audio_stream.close()
         self.sender_module.sender_socket.close()
         self.sender_status_text['text'] = "Disconnected"
         self.sender_status_text['fg'] = "black"
