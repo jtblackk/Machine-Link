@@ -8,7 +8,7 @@ At the moment, it is limited to sharing audio.
 2. Download and install a virtual audio cable on the machine you want to send audio from
     * I recommend https://www.vb-audio.com/Cable/
 3. Route any audio you want sent to the virtual audio cable
-    * This can be done using window's sound mixer options page
+    * This can be done using window's Sound Mixer Options page
 4. Open Unify on the machine you want to send audio from
     * This is done by going into the Unify folder and opening the file Unify.exe
 5. Select the audio device to stream from (for our purposes, this will be CABLE Output)
