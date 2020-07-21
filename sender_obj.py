@@ -41,11 +41,9 @@ class sender:
     def connect_to_receiver(self):
         # listen for a connection
         self.sender_socket.listen(4)
-        print(f"waiting for a connection... connect to {self.sender_address} @ {self.sender_port}")
 
         # connect to the receiver
         self.receiver_socket, self.receiver_address = self.sender_socket.accept()
-        print(f"connection with {self.receiver_address} established")
 
     # send a header and the audio data stream to the receiver
     def stream_audio(self, device_name):
