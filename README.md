@@ -4,7 +4,7 @@ Unify shares system outputs and inputs. The idea is an application that lets you
 At the moment, it is limited to sharing audio.
 
 ### To use it to share audio:
-1. Download and run Unify installer
+1. [Download](http://www.jeffblack.info/demos/Unify.zip) and unzip Unify
 2. Download and install a virtual audio cable on the machine you want to send audio from
     * I recommend https://www.vb-audio.com/Cable/
 3. Route any audio you want sent to the virtual audio cable
