@@ -8,7 +8,7 @@ class sender:
     FORMAT = pyaudio.paInt16
     RATE = 44100
     p = pyaudio.PyAudio()
-
+    receiver_socket = None
 
 
     # returns a list of the audio devices available for use
@@ -73,11 +73,3 @@ class sender:
                 self.receiver_socket.send(data)
             except: # break if there's an interruption in the data flow
                 break
-        self.receiver_socket.close()
-    # closes all of the connections related to sending audio
-    def close_connection(self):
-        # close socket and streams
-        self.sender_socket.close()
-        self.audio_stream.stop_stream()
-        self.audio_stream.close()
-        self.p.terminate()
