@@ -132,7 +132,6 @@ class GUI:
 
     # threads the start_receiver callback
     def threaded_start_receiver(self):
-        print("threaded_start_receiver()")
         receiver_thread = td.Thread(target=self.start_receiver)
         receiver_thread.setDaemon(True)
         self.threads.append(receiver_thread)
@@ -180,7 +179,6 @@ class GUI:
 
     # threads the stop_receiver callback
     def threaded_stop_receiver(self):
-        print("threaded_stop_receiver()")
         stop_receiver_thread = td.Thread(target=self.stop_receiver)
         stop_receiver_thread.setDaemon(True)
         self.threads.append(stop_receiver_thread)
@@ -201,7 +199,6 @@ class GUI:
 
     # threads the start_sender callback
     def threaded_start_sender(self):
-        print("threaded_start_sender()")
         start_sender_thread = td.Thread(target=self.start_sender)
         start_sender_thread.setDaemon(True)
         self.threads.append(start_sender_thread)
@@ -209,7 +206,6 @@ class GUI:
 
     # callback function for when the user presses "start" on the sender module
     def start_sender(self):
-        print("start_sender()")
         # create a socket
         try: 
             self.sender_module.create_socket()
@@ -232,15 +228,12 @@ class GUI:
         self.sender_module.stream_audio(self.audio_source.get())
 
         # if connection closes, handle it
-        print("broke out of loop and called self.threaded_stop_sender()")
         self.threaded_stop_sender()
         self.sender_module.audio_stream.stop_stream()
         self.sender_module.receiver_socket.close()
-        # self.sender_module.sender_socket.close()
 
     # threads the stop_sender callback
     def threaded_stop_sender(self):
-        print("threaded_stop_sender()")
         stop_sender_thread = td.Thread(target=self.stop_sender)
         stop_sender_thread.setDaemon(True)
         self.threads.append(stop_sender_thread)
@@ -248,10 +241,7 @@ class GUI:
 
     # callback function for when the user presses "stop" on the sender module
     def stop_sender(self):
-        print("stop_sender()")
-        # self.sender_module.close_connection()
         self.sender_module.audio_stream.stop_stream()
-        # self.sender_module.audio_stream.close()
         self.sender_module.sender_socket.close()
         self.sender_status_text['text'] = "Disconnected"
         self.sender_status_text['fg'] = "black"
