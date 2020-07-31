@@ -13,7 +13,7 @@ At the moment, it is limited to sharing audio.
     * This is done by going into the Unify folder and opening the file Unify.exe
 5. Select the audio device to stream from.
     * For our purposes, this will be CABLE Output (VB-Audio Virtual Cable)
-6. Press start on the Send Audio section
+6. Press start under the Send Audio section
 7. Open Unify on the machine you want to receive audio on
 8. On the receiving machine, enter the ip address and port that are shown on the sending machine's Unify app
 9. Press start under the Receive Audio section
