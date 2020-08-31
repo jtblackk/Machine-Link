@@ -1,7 +1,7 @@
 # Unify
 Unify shares system outputs and inputs. The idea is an application that lets you use two systems as if they're one.
 
-At the moment, it is limited to sharing audio. The current solution is also very hacky, I'll be moving it to C++ or C# to make it a little less so :)
+At the moment, it is limited to sharing audio. The current solution is also very hacky, I'll be moving it to C++/C# to make it a little less so :)
 
 ### To use it to share audio:
 1. [Download](http://www.jeffblack.info/demos/Unify.zip) and unzip Unify on the machine you want to send from and the machine you want to send to.
