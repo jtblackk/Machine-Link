@@ -19,4 +19,4 @@ At the moment, it is limited to sharing audio. The current solution is also very
 9. Press start under the Receive Audio section
 10. Enjoy wireless audio :)
 
-Motivation for the project: I find myself in situations where I'm using my laptop and desktop at the same time. I would like to be able to link them together so I can share a single keyboard, mouse, and set of audio equipment. I use Synergy to share my keyboard and mouse inputs, so you can use Synergy and Unify in tandem to get the desired final outcome.
+Motivation for the project: I find myself in situations where I'm using my laptop and desktop at the same time. I would like to be able to link them together so I can share a single keyboard, mouse, and set of audio equipment. I use Synergy to share my keyboard and mouse inputs, you can use Synergy and Unify in tandem to achieve the same thing.
