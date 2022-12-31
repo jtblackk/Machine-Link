@@ -3,8 +3,8 @@
 
 
 import tkinter as tk
-import receiver_obj as rec
-import sender_obj as sen
+import udp_receiver_obj as rec
+import udp_sender_obj as sen
 import ipaddress as ip
 import threading as td
 
