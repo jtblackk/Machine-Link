@@ -18,3 +18,7 @@ Unify transmits audio from one computer to another wirelessly, like an invisible
 10. Enjoy wireless audio :)
 
 Motivation for the project: I find myself in situations where I'm using my laptop and desktop at the same time. I would like to be able to link them together so I can share a single keyboard, mouse, and set of audio equipment. I use Synergy to share my keyboard and mouse inputs, you can use Synergy and Unify in tandem to achieve the same thing.
+
+![unify_sender](https://user-images.githubusercontent.com/45664302/210140607-5ab44395-5f7f-49bd-920e-89e7899ecb7c.png)
+
+![unify_receiver](https://user-images.githubusercontent.com/45664302/210140609-b4ff0d90-93a9-422e-b23b-c1275afd1f09.png)
