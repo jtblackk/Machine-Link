@@ -16,9 +16,9 @@ class sender:
     p = pyaudio.PyAudio()
     receiver_socket = None
 
-
     # returns a list of the audio devices available for use
     # removes duplicate items and filters out invalid options
+
     def get_audio_devices(self):
         audio_device_list = []
         for index in range(0, self.p.get_device_count()):
@@ -35,7 +35,7 @@ class sender:
 
         # bind the socket
         self.sender_address = socket.gethostbyname(socket.gethostname())
-        self.sender_port = r.randint(6000,8000)
+        self.sender_port = r.randint(6000, 8000)
         self.sender_socket.bind((self.sender_address, self.sender_port))
 
     def connect_to_receiver(self):
@@ -55,14 +55,16 @@ class sender:
 
         # send header
         device_info = self.p.get_device_info_by_index(device_index)
-        self.receiver_socket.send(bytes(str(device_info.get('maxInputChannels')), "utf-8"))
+        self.receiver_socket.send(
+            bytes(str(device_info.get('maxInputChannels')), "utf-8"))
 
         # open audio stream
-        self.audio_stream = self.p.open(format = self.FORMAT,
-                                        channels = device_info.get('maxInputChannels'),
-                                        rate = self.RATE,
-                                        input = True,
-                                        frames_per_buffer = self.CHUNK_SIZE,
+        self.audio_stream = self.p.open(format=self.FORMAT,
+                                        channels=device_info.get(
+                                            'maxInputChannels'),
+                                        rate=self.RATE,
+                                        input=True,
+                                        frames_per_buffer=self.CHUNK_SIZE,
                                         input_device_index=device_info.get('index'))
 
         # connection loop
@@ -73,5 +75,5 @@ class sender:
 
                 # send the data to the receiver
                 self.receiver_socket.send(data)
-            except: # break if there's an interruption in the data flow
+            except:  # break if there's an interruption in the data flow
                 break

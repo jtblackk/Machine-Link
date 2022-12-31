@@ -3,8 +3,8 @@
 
 
 import tkinter as tk
-import udp_receiver_obj as rec
-import udp_sender_obj as sen
+import receiver_obj as rec
+import sender_obj as sen
 import ipaddress as ip
 import threading as td
 
@@ -223,11 +223,14 @@ class GUI:
             return
 
         # connect to the receiver
-        self.sender_module.connect_to_receiver()
-        self.sender_status_text['text'] = "Sending"
-        self.sender_status_text['fg'] = "purple"
-
+        try:
+            self.sender_module.connect_to_receiver()
+            self.sender_status_text['text'] = "Sending"
+            self.sender_status_text['fg'] = "purple"
+        except:
+            print("UDP connection detected")
         # start audio stream
+
         self.sender_module.stream_audio(self.audio_source.get())
 
         # if connection closes, handle it
